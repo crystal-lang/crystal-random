@@ -1,6 +1,6 @@
 # crystal-random
 
-TODO: Write a description here
+This library contains utilities to generate random numbers.
 
 ## Installation
 
@@ -9,7 +9,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   crystal-random:
-    github: [your-github-name]/crystal-random
+    github: crystal-lang/crystal-random
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ TODO: Write development instructions here
 
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/crystal-random/fork )
+1. Fork it ( https://github.com/crystal-lang/crystal-random/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
@@ -34,5 +34,5 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) Martin Verzilli - creator, maintainer
-# crystal-random
+- [crystal-lang](https://github.com/crystal-lang) The Crystal Lang Team - creator, maintainer
+
