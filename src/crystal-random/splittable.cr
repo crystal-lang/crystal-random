@@ -1,5 +1,5 @@
 require "atomic"
-require "secure_random"
+require "random/secure"
 
 # Splittable Random Number Generator
 #
@@ -14,11 +14,8 @@ require "secure_random"
 class Random::Splittable
   include Random
 
-  # :nodoc:
-  GOLDEN_GAMMA = 0x9e3779b97f4a7c15_u64 # odd
-
-  # :nodoc:
-  DOUBLE_UNIT = 1.0 / (1_u64 << 53)
+  private GOLDEN_GAMMA = 0x9e3779b97f4a7c15_u64 # odd
+  private DOUBLE_UNIT = 1.0 / (1_u64 << 53)
 
   @seed : UInt64
   @gamma : UInt64
@@ -29,11 +26,11 @@ class Random::Splittable
     @gamma = mix_gamma(s + GOLDEN_GAMMA)
   end
 
-  def initialize(@seed)
+  def initialize(@seed : UInt64)
     @gamma = GOLDEN_GAMMA
   end
 
-  def initialize(@seed, @gamma)
+  def initialize(@seed : UInt64, @gamma : UInt64)
   end
 
   def next_u : UInt64
@@ -81,7 +78,7 @@ class Random::Splittable
 
   private def initial_seed
     bytes = uninitialized UInt8[8]
-    SecureRandom.random_bytes(bytes.to_slice)
-    bytes.to_unsafe.as(UInt64*).value
+    Random::Secure.random_bytes(bytes.to_slice)
+    bytes.unsafe_as(UInt64)
   end
 end

@@ -1,4 +1,4 @@
-require "secure_random"
+require "random/secure"
 
 # This is based on the original implementation of MT19937. To get the original version,
 # contact <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html>.
@@ -61,7 +61,7 @@ class Random::MT19937
 
   private def random_seeds
     result = uninitialized Seeds
-    SecureRandom.random_bytes(result.to_unsafe.as(UInt8*).to_slice(sizeof(Seeds)))
+    Random::Secure.random_bytes(result.to_unsafe.as(UInt8*).to_slice(sizeof(Seeds)))
     result
   end
 
