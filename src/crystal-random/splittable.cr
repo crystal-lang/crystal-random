@@ -21,9 +21,9 @@ class Random::Splittable
   @gamma : UInt64
 
   def initialize
-    s = default_gen.add(2_u64 * GOLDEN_GAMMA)
+    s = default_gen.add(2_u64 &* GOLDEN_GAMMA)
     @seed = mix64(s)
-    @gamma = mix_gamma(s + GOLDEN_GAMMA)
+    @gamma = mix_gamma(s &+ GOLDEN_GAMMA)
   end
 
   def initialize(@seed : UInt64)
@@ -50,23 +50,23 @@ class Random::Splittable
   end
 
   private def next_seed
-    @seed += @gamma
+    @seed &+= @gamma
   end
 
   private def mix64(z)
-    z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9_u64
-    z = (z ^ (z >> 27)) * 0x94d049bb133111eb_u64
+    z = (z ^ (z >> 30)) &* 0xbf58476d1ce4e5b9_u64
+    z = (z ^ (z >> 27)) &* 0x94d049bb133111eb_u64
     z ^ (z >> 31)
   end
 
   private def mix32(z)
-    z = (z ^ (z >> 33)) * 0x62a9d9ed799705f5_u64
-    (((z ^ (z >> 28)) * 0xcb24d0a5c88c35b3_u64) >> 32).to_i32
+    z = (z ^ (z >> 33)) &* 0x62a9d9ed799705f5_u64
+    (((z ^ (z >> 28)) &* 0xcb24d0a5c88c35b3_u64) >> 32).to_i32!
   end
 
   private def mix_gamma(z)
-    z = (z ^ (z >> 33)) * 0xff51afd7ed558ccd_u64
-    z = (z ^ (z >> 33)) * 0xc4ceb9fe1a85ec53_u64
+    z = (z ^ (z >> 33)) &* 0xff51afd7ed558ccd_u64
+    z = (z ^ (z >> 33)) &* 0xc4ceb9fe1a85ec53_u64
     z = (z ^ (z >> 33)) | 1_u64
     n = (z ^ (z >> 1)).popcount
     (n < 24) ? z ^ 0xaaaaaaaaaaaaaaaa_u64 : z
